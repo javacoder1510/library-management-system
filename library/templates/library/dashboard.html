@@ -1,0 +1,62 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Library Dashboard</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card shadow dashboard-card bg-primary text-white">
+            <h5>Students</h5>
+            <h2>{{ student_count }}</h2>
+
+            <a href="{% url 'students' %}"
+               class="btn btn-light mt-2">
+                View Students
+            </a>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card shadow dashboard-card bg-success text-white">
+            <h5>Teachers</h5>
+            <h2>{{ teacher_count }}</h2>
+
+            <a href="{% url 'teachers' %}"
+               class="btn btn-light mt-2">
+                View Teachers
+            </a>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card shadow dashboard-card bg-warning">
+            <h5>Books</h5>
+            <h2>{{ book_count }}</h2>
+
+            <a href="{% url 'books' %}"
+               class="btn btn-dark mt-2">
+                View Books
+            </a>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card shadow dashboard-card bg-danger text-white">
+            <h5>Issued Books</h5>
+            <h2>{{ issued_count }}</h2>
+
+            <a href="{% url 'issued_books' %}"
+               class="btn btn-light mt-2">
+                View Issued
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

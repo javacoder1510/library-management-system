@@ -1,0 +1,79 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+<h2>
+    {% if book %}
+        Edit Book
+    {% else %}
+        Add Book
+    {% endif %}
+</h2>
+
+<div class="card shadow mt-3">
+    <div class="card-body">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label>Book Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    value="{{ book.name|default:'' }}"
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label>Author</label>
+                <input
+                    type="text"
+                    name="author"
+                    class="form-control"
+                    value="{{ book.author|default:'' }}"
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label>Category</label>
+                <input
+                    type="text"
+                    name="category"
+                    class="form-control"
+                    value="{{ book.category|default:'' }}"
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label>Quantity</label>
+                <input
+                    type="number"
+                    name="quantity"
+                    class="form-control"
+                    min="0"
+                    value="{{ book.quantity|default:1 }}"
+                    required
+                >
+            </div>
+
+            <button class="btn btn-success">
+                Save
+            </button>
+
+            <a href="{% url 'books' %}"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+<h2>Issue Book</h2>
+
+<div class="card shadow mt-3">
+    <div class="card-body">
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label>Book</label>
+
+                <select name="book"
+                        class="form-select"
+                        required>
+
+                    <option value="">
+                        Select Book
+                    </option>
+
+                    {% for book in books %}
+                        <option value="{{ book.id }}">
+                            {{ book.name }} — Available: {{ book.quantity }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label>Student</label>
+
+                <select name="student"
+                        class="form-select">
+
+                    <option value="">
+                        Select Student
+                    </option>
+
+                    {% for student in students %}
+                        <option value="{{ student.id }}">
+                            {{ student.name }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label>Teacher</label>
+
+                <select name="teacher"
+                        class="form-select">
+
+                    <option value="">
+                        Select Teacher
+                    </option>
+
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher.id }}">
+                            {{ teacher.name }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+
+            <button class="btn btn-primary">
+                Issue Book
+            </button>
+
+            <a href="{% url 'issued_books' %}"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

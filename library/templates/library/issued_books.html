@@ -1,0 +1,138 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-3">
+
+    <h2>Issued Books</h2>
+
+    <a href="{% url 'issue_book' %}"
+       class="btn btn-primary">
+        + Issue Book
+    </a>
+
+</div>
+
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Book</th>
+                    <th>Issued To</th>
+                    <th>Issue Date</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for item in issued_books %}
+
+                <tr>
+
+                    <td>
+                        {{ item.book.name }}
+                    </td>
+
+
+                    <td>
+
+                        {% if item.student %}
+                            👨‍🎓 {{ item.student.name }}
+                            <small class="text-muted">
+                                (Student)
+                            </small>
+
+                        {% elif item.teacher %}
+                            👨‍🏫 {{ item.teacher.name }}
+                            <small class="text-muted">
+                                (Teacher)
+                            </small>
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ item.issue_date }}
+                    </td>
+
+
+                    <td>
+                        {% if item.return_date %}
+                            {{ item.return_date }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+
+                    <td>
+
+                        {% if item.status == "Issued" %}
+
+                            <span class="badge bg-warning text-dark">
+                                Issued
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-success">
+                                Returned
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if item.status == "Issued" %}
+
+                            <a
+                                href="{% url 'return_book' item.id %}"
+                                class="btn btn-sm btn-success">
+                                Return
+                            </a>
+
+                        {% else %}
+
+                            <span class="text-muted">
+                                Completed
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No issued books.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}
